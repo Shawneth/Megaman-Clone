@@ -25,13 +25,10 @@ public class Level {
 	 */
 	public Level(){
 		loadedLevel = null;
-		Player player = new Player(60, 100, 500, 300, this);
-		for(int i = 0; i < 10; i++){
-			getBlocks.add(new Block(i*100, 100, 20, 50));
-		}
-		for(int i = 0; i < 10; i++){
-			getBlocks.add(new Block(i*100, 300, 20, 50));
-		}
+		Player player = new Player(80, 120, 500, 300, this);
+		getBlocks.add(new Block(0,100,200,50));
+		getBlocks.add(new Block(270, 260, 50, 50));
+		getBlocks.add(new Block(400, 100, 480, 50));
 		getThings.add(player);
 		getUnits.add(player);
 	}

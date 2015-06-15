@@ -32,12 +32,12 @@ public class Player extends Unit{
 	}
 	
 	private void loadAnimation(){
-		t_idle = new Texture(Gdx.files.internal("idle-strip.png"));
-		idleFrames = TextureRegion.split(t_idle, 21, 24);
+		t_idle = new Texture(Gdx.files.internal("idle2-strip.png"));
+		idleFrames = TextureRegion.split(t_idle, 24, 24);
 		idle = new Animation(1, idleFrames[0]);
 		
 		t_walking = new Texture(Gdx.files.internal("moving-strip.png"));
-		walkingFrames = TextureRegion.split(t_walking, 96/4, 24);
+		walkingFrames = TextureRegion.split(t_walking, 24, 24);
 		walking = new Animation(0.25f, walkingFrames[0]);
 	}
 	
@@ -50,7 +50,7 @@ public class Player extends Unit{
 		
 		if(Gdx.input.isKeyPressed(Keys.SPACE) && !isInAir){
 			isInAir = true;
-			yVel = 500f;
+			yVel = 600f;
 		}
 		
 		if(isInAir){

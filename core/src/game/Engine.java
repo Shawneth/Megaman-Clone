@@ -26,7 +26,6 @@ public class Engine extends ApplicationAdapter {
 		level = new Level();
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.setToOrtho(false);
-		System.out.println("There are " + level.getBlocks.array().size + ".");
 		
 		Gdx.graphics.setVSync(true);
 	}
@@ -54,9 +53,9 @@ public class Engine extends ApplicationAdapter {
 			for(Block block : level.getBlocks.array()){
 				debugger.rect(block.get().x, block.get().y, block.get().width, block.get().height);
 			}
-			for(Thing thing : level.getThings.array()){
-				debugger.rect(thing.getX(), thing.getY(), thing.getWidth(), thing.getHeight());
-			}
+			//for(Thing thing : level.getThings.array()){
+				//debugger.rect(thing.getX(), thing.getY(), thing.getWidth(), thing.getHeight());
+			//}
 		debugger.end();
 		camera.update();
 		
