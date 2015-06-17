@@ -8,7 +8,7 @@ public abstract class Unit implements Thing{
 	public float posx, posy;
 	protected Level level;
 	
-	protected Unit(float width, float height, float x, float y, Level level){
+	protected Unit(float x, float y, float width, float height, Level level){
 		posx = x;
 		posy = y;
 		hitBox = new Rectangle(x, y, width, height);

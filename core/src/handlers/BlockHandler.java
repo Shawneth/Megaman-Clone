@@ -3,6 +3,7 @@ package handlers;
 import game.Block;
 import game.Unit;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 public class BlockHandler {
@@ -26,8 +27,9 @@ public class BlockHandler {
 		return null;
 	}
 	public boolean isTouchingBlock(Unit unit){
+		Rectangle box = new Rectangle(unit.getX(), unit.getY()-1, unit.getWidth(), unit.getHeight());
 		for(Block block : currentBlocks){
-			if(unit.getHitBox().overlaps(block.get())){
+			if(block.get().overlaps(box)){
 				return true;
 			}
 		}

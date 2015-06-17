@@ -25,10 +25,9 @@ public class Level {
 	 */
 	public Level(){
 		loadedLevel = null;
-		Player player = new Player(80, 120, 500, 300, this);
-		getBlocks.add(new Block(0,100,200,50));
-		getBlocks.add(new Block(270, 260, 50, 50));
-		getBlocks.add(new Block(400, 100, 480, 50));
+		Player player = new Player(40, 400, 50, 80, this);
+		getBlocks.add(new Block(0,100,1000,50));
+		getBlocks.add(new Block(340, 280, 50, 50));
 		getThings.add(player);
 		getUnits.add(player);
 	}
