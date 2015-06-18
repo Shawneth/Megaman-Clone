@@ -26,6 +26,12 @@ public class Player extends Unit{
 	private TextureRegion jump_idle;
 	
 	private TextureRegion currentFrame;
+	private float currentFrameXPosition;
+	
+	// This value is a RELATIVE value to the current frame's x position, not an absolute value.
+	public float getXFrame(){
+		return currentFrameXPosition;
+	}
 	
 	
 	public Player(float x, float y, float width, float height, Level level) {
@@ -36,7 +42,7 @@ public class Player extends Unit{
 	private void loadAnimation(){
 		t_idle = new Texture(Gdx.files.internal("idle2-strip.png"));
 		idleFrames = TextureRegion.split(t_idle, 21, 24);
-		idle = new Animation(1, idleFrames[0]);
+		idle = new Animation(2, idleFrames[0]);
 		
 		t_walking = new Texture(Gdx.files.internal("moving-strip.png"));
 		walkingFrames = TextureRegion.split(t_walking, 24, 24);
@@ -51,8 +57,6 @@ public class Player extends Unit{
 	public void update(float delta) {
 		stateTime += delta;
 		
-		System.out.println(isInAir);
-		
 		if(!isMoving){
 			currentFrame = idle.getKeyFrame(stateTime, true);
 		}
@@ -61,7 +65,6 @@ public class Player extends Unit{
 		}
 		
 		isMoving = false;
-		System.out.println(yVel);
 		
 		if(Gdx.input.isKeyPressed(Keys.D)) moveRight(movementSpeed * delta);
 		else if(Gdx.input.isKeyPressed(Keys.A)) moveLeft(movementSpeed * delta);
@@ -79,14 +82,29 @@ public class Player extends Unit{
 			isInAir = true;
 			yVel = 600f;
 		}
-		
-		super.updateHitBox(posx, posy);
-		
+		if(currentFrame.isFlipX()){
+			currentFrameXPosition = -level.SCALE;
+		}
+		else{
+			currentFrameXPosition = 0;
+		}
+		super.updateHitBox(posx, posy, idleFrames[0][0].getRegionWidth() * level.SCALE, idleFrames[0][0].getRegionHeight()* level.SCALE);
 	}
 	
 	private boolean isRight = true;
 	private boolean isMoving = false;
 	private boolean isInAir = true;
+	
+	private void flipAll(){
+		for(TextureRegion r : idleFrames[0]){
+			r.flip(true, false);
+		}
+		for(TextureRegion r : walkingFrames[0]){
+			r.flip(true, false);
+		}
+		jump_idle.flip(true, false);
+		isRight = !isRight;
+	}
 	
 	
 	private void free(float speed){
@@ -100,29 +118,21 @@ public class Player extends Unit{
 					posy = block.getTop();
 					yVel = 0f;
 					isInAir = false;
-					updateHitBox(posy, posx);
 					return;
 				}
 				else if(block.getTop() >= collisionChecker.y && yVel > 0){
 					posy = block.getBottom() - getHitBox().height;
 					yVel = 0;
-					updateHitBox(posy, posx);
 					return;
 				}
 			}
 		}
 	}
+
 	
 	private void moveRight(float distance){
 		if(!isRight){
-			for(TextureRegion r : idleFrames[0]){
-				r.flip(true, false);
-			}
-			for(TextureRegion r : walkingFrames[0]){
-				r.flip(true, false);
-			}
-			jump_idle.flip(true, false);
-			isRight = !isRight;
+			flipAll();
 		}
 		collisionChecker = new Rectangle(this.getHitBox().x + distance,this.getHitBox().y,this.getHitBox().width,this.getHitBox().height);
 		for(Block block : getLevel().getBlocks.array()){
@@ -136,14 +146,7 @@ public class Player extends Unit{
 	}
 	private void moveLeft(float distance){
 		if(isRight){
-			isRight = !isRight;
-			for(TextureRegion r : idleFrames[0]){
-				r.flip(true, false);
-			}
-			for(TextureRegion r : walkingFrames[0]){
-				r.flip(true, false);
-			}
-			jump_idle.flip(true, false);
+			flipAll();
 		}
 		collisionChecker = new Rectangle(this.getHitBox().x - distance,this.getHitBox().y,this.getHitBox().width,this.getHitBox().height);
 		for(Block block : getLevel().getBlocks.array()){

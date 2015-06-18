@@ -14,7 +14,8 @@ public class Engine extends ApplicationAdapter {
 
 	Level level;
 
-	private boolean DEBUG = true;
+	private boolean DEBUG_LEVEL = true;
+	private boolean DEBUG_THINGS = true;
 
 	SpriteBatch batch;
 	ShapeRenderer debugger;
@@ -25,7 +26,7 @@ public class Engine extends ApplicationAdapter {
 	public void create() {
 		batch = new SpriteBatch();
 		debugger = new ShapeRenderer();
-		level = new Level();
+		level = new Level(2.4f);
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		camera.setToOrtho(false);
@@ -48,24 +49,35 @@ public class Engine extends ApplicationAdapter {
 
 		batch.begin();
 		for (Thing thing : level.getThings.array()) {
+			if(thing instanceof Player){
+				float offset = ((Player) thing).getXFrame();
+				batch.draw(thing.getAnimationFrame(), thing.getX() + offset, thing.getY(),
+						thing.getAnimationFrame().getRegionWidth() * level.SCALE,
+						thing.getAnimationFrame().getRegionHeight() * level.SCALE);
+			}
+			else {
 			batch.draw(thing.getAnimationFrame(), thing.getX(), thing.getY(),
-					thing.getWidth(), thing.getHeight());
+					thing.getAnimationFrame().getRegionWidth() * level.SCALE,
+					thing.getAnimationFrame().getRegionHeight() * level.SCALE);
+			}
 		}
 		batch.end();
-		if (DEBUG) {
-			debugger.setColor(Color.BLACK);
-			debugger.begin(ShapeType.Line);
+		debugger.setColor(Color.BLACK);
+		debugger.begin(ShapeType.Line);
+		if (DEBUG_LEVEL) {
 			for (Block block : level.getBlocks.array()) {
 				debugger.rect(block.get().x, block.get().y, block.get().width,
 						block.get().height);
 			}
+		}
+		if (DEBUG_THINGS) {
 			for (Thing thing : level.getThings.array()) {
 				debugger.rect(thing.getX(), thing.getY(), thing.getWidth(),
 						thing.getHeight());
 			}
-			debugger.end();
-			camera.update();
 		}
+		debugger.end();
+		camera.update();
 
 	}
 }
