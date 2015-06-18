@@ -10,8 +10,8 @@ import handlers.UnitHandler;
 public class Level {
 	
 	public final float SCALE;
-	
-	public final float GRAVITY = 1000f;
+	public final float WIDTH, HEIGHT;
+	public final float GRAVITY = 1750f;
 	
 	final TiledMap loadedLevel;
 	
@@ -25,6 +25,8 @@ public class Level {
 		loadedLevel = map;
 		SCALE = s;
 		player = null;
+		HEIGHT = 0;
+		WIDTH = 0;
 	}
 	/**
 	 * This will result in loading a testing level.
@@ -32,12 +34,16 @@ public class Level {
 	 */
 	public Level(float s){
 		SCALE = s;
+		WIDTH = 16000f;
+		HEIGHT = 1200f;
 		loadedLevel = null;
 		player = new Player(100, 200, 50, 80, this);
 		getThings.add(player);
 		getBlocks.add(new Block(0,100,1000,50));
 		getBlocks.add(new Block(340, 280, 50, 50));
 		getBlocks.add(new Block(200, 150, 50, 50));
+		getBlocks.add(new Block(400, 150, 50, 50));
+		getBlocks.add(new Block(480, 180, 50, 50));
 	}
 	
 	private void load(){

@@ -9,13 +9,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Engine extends ApplicationAdapter {
 
 	Level level;
 
 	private boolean DEBUG_LEVEL = true;
-	private boolean DEBUG_THINGS = true;
+	private boolean DEBUG_THINGS = false;
 
 	SpriteBatch batch;
 	ShapeRenderer debugger;
@@ -43,17 +44,20 @@ public class Engine extends ApplicationAdapter {
 		/**
 		 * Update everything in the game.
 		 */
-		for (Thing thing : level.getThings.array()) {
+		for (Thing thing : level.getThings.array()) {	
 			thing.update(Gdx.graphics.getRawDeltaTime());
 		}
 
 		batch.begin();
 		for (Thing thing : level.getThings.array()) {
 			if(thing instanceof Player){
-				float offset = ((Player) thing).getXFrame();
+				Player player = (Player) thing;
+				float offset = player.getXFrame();
 				batch.draw(thing.getAnimationFrame(), thing.getX() + offset, thing.getY(),
 						thing.getAnimationFrame().getRegionWidth() * level.SCALE,
 						thing.getAnimationFrame().getRegionHeight() * level.SCALE);
+				camera.position.x = player.posx;
+				camera.position.x = MathUtils.clamp(camera.position.x, 0f, 500f);
 			}
 			else {
 			batch.draw(thing.getAnimationFrame(), thing.getX(), thing.getY(),
@@ -78,6 +82,11 @@ public class Engine extends ApplicationAdapter {
 		}
 		debugger.end();
 		camera.update();
-
+	}
+	private Player getPlayer(Thing thing){
+		if(thing instanceof Player)
+			return (Player) thing;
+		else
+			return null;
 	}
 }
