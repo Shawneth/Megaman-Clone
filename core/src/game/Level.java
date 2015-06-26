@@ -3,6 +3,7 @@ package game;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import handlers.BlockHandler;
+import handlers.EventHandler;
 import handlers.ProjectileHandler;
 import handlers.ThingHandler;
 import handlers.UnitHandler;
@@ -30,7 +31,6 @@ public class Level {
 	}
 	/**
 	 * This will result in loading a testing level.
-	 * 
 	 */
 	public Level(float s){
 		SCALE = s;
@@ -72,5 +72,9 @@ public class Level {
 	 * We use this to store all static obstacles. These are NOT considered to be 'things'.
 	 */
 	final BlockHandler getBlocks = new BlockHandler();
+	/**
+	 * We use this to store all of the events that may take place during the game.
+	 */
+	final EventHandler getEvents = new EventHandler();
 	
 }

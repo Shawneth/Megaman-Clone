@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -14,25 +15,39 @@ import com.badlogic.gdx.math.MathUtils;
 public class Engine extends ApplicationAdapter {
 
 	Level level;
-
+	BitmapFont font;
+	
+	private static final String version = "0.7a";
 	private boolean DEBUG_LEVEL = true;
-	private boolean DEBUG_THINGS = false;
+	private boolean DEBUG_THINGS = true;
 
 	SpriteBatch batch;
+	SpriteBatch hud;
 	ShapeRenderer debugger;
 
-	OrthographicCamera camera;
+	OrthographicCamera camera, screen;
+	
+	
 
 	@Override
 	public void create() {
+		
+		font = new BitmapFont();
+		font.setUseIntegerPositions(false);
+		font.setColor(Color.BLUE);
+		
+		hud = new SpriteBatch();
 		batch = new SpriteBatch();
 		debugger = new ShapeRenderer();
 		level = new Level(2.4f);
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
+		screen = new OrthographicCamera(Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
 		camera.setToOrtho(false);
+		screen.setToOrtho(false);
 
-		Gdx.graphics.setVSync(true);
+		//Gdx.graphics.setVSync(true);
 	}
 
 	@Override
@@ -40,6 +55,7 @@ public class Engine extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
+		hud.setProjectionMatrix(screen.combined);
 		debugger.setProjectionMatrix(camera.combined);
 		/**
 		 * Update everything in the game.
@@ -47,6 +63,10 @@ public class Engine extends ApplicationAdapter {
 		for (Thing thing : level.getThings.array()) {	
 			thing.update(Gdx.graphics.getRawDeltaTime());
 		}
+		
+		hud.begin();
+			font.draw(hud, version, 30, 30);
+		hud.end();
 
 		batch.begin();
 		for (Thing thing : level.getThings.array()) {
@@ -56,8 +76,9 @@ public class Engine extends ApplicationAdapter {
 				batch.draw(thing.getAnimationFrame(), thing.getX() + offset, thing.getY(),
 						thing.getAnimationFrame().getRegionWidth() * level.SCALE,
 						thing.getAnimationFrame().getRegionHeight() * level.SCALE);
-				camera.position.x = player.posx;
+				camera.position.x = player.getHitBox().x + player.getHitBox().width/2;
 				camera.position.x = MathUtils.clamp(camera.position.x, 0f, 500f);
+				camera.update();
 			}
 			else {
 			batch.draw(thing.getAnimationFrame(), thing.getX(), thing.getY(),
@@ -81,7 +102,6 @@ public class Engine extends ApplicationAdapter {
 			}
 		}
 		debugger.end();
-		camera.update();
 	}
 	private Player getPlayer(Thing thing){
 		if(thing instanceof Player)
