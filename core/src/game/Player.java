@@ -13,7 +13,7 @@ public class Player extends Unit{
 	private float movementSpeed = 200f;
 	private float yVel = 0f;
 	
-	private float stateTime = 0;
+	private float stateTime = 0f;
 	
 	private Texture t_walking;
 	private Animation walking;
@@ -40,15 +40,15 @@ public class Player extends Unit{
 	}
 	
 	private void loadAnimation(){
-		t_idle = new Texture(Gdx.files.internal("idle2-strip.png"));
+		t_idle = new Texture(Gdx.files.internal("sprite/idle2-strip.png"));
 		idleFrames = TextureRegion.split(t_idle, 21, 24);
-		idle = new Animation(2, idleFrames[0]);
+		idle = new Animation(2f, idleFrames[0]);
 		
-		t_walking = new Texture(Gdx.files.internal("moving-strip.png"));
+		t_walking = new Texture(Gdx.files.internal("sprite/moving-strip.png"));
 		walkingFrames = TextureRegion.split(t_walking, 24, 24);
 		walking = new Animation(0.15f, walkingFrames[0]);
 		
-		jump_idle = new TextureRegion(new Texture(Gdx.files.internal("jump.png")));
+		jump_idle = new TextureRegion(new Texture(Gdx.files.internal("sprite/jump.png")));
 	}
 	
 	private Rectangle collisionChecker;

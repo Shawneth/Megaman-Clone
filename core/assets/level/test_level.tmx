@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="150" height="400" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="backgrounds1" tilewidth="16" tileheight="16">
+  <image source="art/art_level1/backgrounds1.png" width="33" height="33"/>
+ </tileset>
+ <tileset firstgid="5" name="platforms1" tilewidth="16" tileheight="16">
+  <image source="art/art_level1/platforms1.png" width="67" height="16"/>
+ </tileset>
+ <layer name="background" width="150" height="400">
+  <data encoding="base64" compression="zlib">
+   eJzt0rEJwEAQBLH//pt26A48eJHg8oOde865o0en3l5Xm+rtdbWp3l5Xm+rtdbWp3l5Xm+rtdbWp3l5Xm+rtdbWp3l5Xm+rtdbWp3l5Xm+rtdbWp3l5Xm+rtdbWp3l5Xm+rtdbWp3l5Xm+rtNbWp3l9Xm+r9l7r6y59fqPfX1aZ6f11tqvfX1aZ6f11tqvfX1aZ6f11tqvfX1aZ6f11tqvdf6opXvb+uNtX762pTvb+uNtX762pTvb+uNtX762pTvb+uNtX762pTvb+uNtX762pTvb+uAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIC/egAMDQku
+  </data>
+ </layer>
+ <layer name="platforms" width="150" height="400">
+  <data encoding="base64" compression="zlib">
+   eJzt20EOwiAQBdBu7P2PrMuJERgq1QDvJU2JEbrwB+i0HgcAAADA7z1ex/nlAQA7sUbyT/IHAADzsC+nRj6oqd3nl9qZsXqvzXpKv+uVXPVcU57WVstVaU751CeTlTOc5WptV+arTJ/MmLK1rhG5yu6VSv1gFJkCYAbqTIyUqS/IHL1KNarYbtWjanmTxT1lchXbPTUtc9zeWs8P3+erbLZkiqi1v6qth/E7EPW815D9nH1c2YdnxoSR/8OSKUaz/jGaTHEHmQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAID5PAGlSgO0
+  </data>
+ </layer>
+</map>

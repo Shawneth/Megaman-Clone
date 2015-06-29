@@ -28,7 +28,6 @@ public class SectionHandler {
 	}
 	/**
 	 * Call only when a force close is called.
-	 * 
 	 */
 	public void dispose(){
 		currentSections.clear();
