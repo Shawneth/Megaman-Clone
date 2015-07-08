@@ -10,8 +10,4 @@ Designed for HTML5 and for Desktop.
 - Cross Platform
 - Server-Client multiplayer
 
-# [Download (alpha 0.0.7)](http://www.mediafire.com/download/5dv4dz6waz1psm2/mega-alpha7.jar)
-
-
-
-
+# [Download (alpha 0.9.0)](https://www.mediafire.com/?anfc9cy9p017jcz)
