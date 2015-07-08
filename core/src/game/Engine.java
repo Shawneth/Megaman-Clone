@@ -16,7 +16,7 @@ public class Engine extends ApplicationAdapter {
 	Level level;
 	BitmapFont font;
 	
-	private static final String version = "0.7a";
+	private static final String version = "0.9.1a";
 	private boolean DEBUG_LEVEL = true;
 	private boolean DEBUG_THINGS = true;
 
@@ -47,6 +47,7 @@ public class Engine extends ApplicationAdapter {
 		camera.setToOrtho(false);
 		screen.setToOrtho(false);
 
+		Gdx.graphics.setTitle("Platformer " + version);
 		Gdx.graphics.setVSync(true);
 	}
 
@@ -78,7 +79,8 @@ public class Engine extends ApplicationAdapter {
 						thing.getAnimationFrame().getRegionWidth() * level.SCALE,
 						thing.getAnimationFrame().getRegionHeight() * level.SCALE);
 				camera.position.x = player.getHitBox().x + player.getHitBox().width/2;
-				camera.position.x = MathUtils.clamp(camera.position.x, 300f, 500f);
+				camera.position.y = player.getHitBox().y + player.getHitBox().height/2;
+				//camera.position.x = MathUtils.clamp(camera.position.x, 300f, level.getLayer("background").getWidth()*level.SCALE);
 			}
 			else {
 			batch.draw(thing.getAnimationFrame(), thing.getX(), thing.getY(),
@@ -95,7 +97,7 @@ public class Engine extends ApplicationAdapter {
 		debugger.setColor(Color.BLACK);
 		debugger.begin(ShapeType.Line);
 		if (DEBUG_LEVEL) {
-			for (Block block : level.getBlocks.array()) {
+			for (Block block : level.getBlocks.array()){
 				debugger.rect(block.get().x, block.get().y, block.get().width,
 						block.get().height);
 			}

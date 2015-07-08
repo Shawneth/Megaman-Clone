@@ -1,5 +1,8 @@
 package game;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -36,10 +39,7 @@ public class Level {
 		SCALE = s;
 		render = new OrthogonalTiledMapRenderer(loadedLevel, SCALE);
 		TiledMapTileLayer platforms = getLayer("platforms");
-		//WIDTH = 16000f;
-		//HEIGHT = 1200f;
-		player = new Player(100, 200, 50, 80, this);
-		getThings.add(player);
+		System.out.println(platforms.getWidth());
 		for(int i = 0; i < platforms.getWidth(); i++){
 			for(int j = 0; j < platforms.getHeight(); j++){
 				if(platforms.getCell(i, j) != null){
@@ -47,22 +47,18 @@ public class Level {
 				}
 			}
 		}
-		TiledMapTileLayer sections = getLayer("sections");
-		for(int i = 0; i < sections.getWidth(); i++){
-			for(int j = 0; j < sections.getHeight(); j++){
-				if(sections.getCell(i, j) != null){
-					getSections.add(new Section(i * sections.getTileWidth() * SCALE, j * sections.getTileHeight() * SCALE, sections.getTileWidth() * SCALE, sections.getTileHeight() * SCALE));
-				}
-			}
-		}
+		MapObjects things = loadedLevel.getLayers().get("things").getObjects();
+		MapObject parsedPlayer = things.get("player");
+		RectangleMapObject r = (RectangleMapObject) parsedPlayer;
+		player = new Player(r.getRectangle().x * SCALE, r.getRectangle().y * SCALE, 50, 80, this);
+		getThings.add(player);
 	}
+
 	/**
 	 * This will result in loading a testing level.
 	 */
 	public Level(float s){
 		SCALE = s;
-		//WIDTH = 16000f;
-		//HEIGHT = 1200f;
 		loadedLevel = null;
 		player = new Player(100, 200, 50, 80, this);
 		getThings.add(player);

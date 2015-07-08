@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Unit{
@@ -78,9 +79,9 @@ public class Player extends Unit{
 				yVel = -250f;
 		}
 		
-		if(Gdx.input.isKeyPressed(Keys.SPACE) && !isInAir){
+		if(Gdx.input.isKeyJustPressed(Keys.SPACE) && !isInAir){
 			isInAir = true;
-			yVel = 600f;
+			yVel = 630f;
 		}
 		if(currentFrame.isFlipX()){
 			currentFrameXPosition = -level.SCALE;
@@ -107,11 +108,12 @@ public class Player extends Unit{
 	}
 	
 	
-	private void free(float speed){
-		float relativeSpeed = yVel * speed;
+	private void free(float delta){
+		float relativeSpeed = yVel * delta;
 		Rectangle collisionChecker = new Rectangle(this.getHitBox().x,this.getHitBox().y + relativeSpeed,this.getHitBox().width,this.getHitBox().height);
 		posy += relativeSpeed;
-		yVel -= level.GRAVITY * speed;
+		yVel -= level.GRAVITY * delta;
+		yVel = MathUtils.clamp(yVel, -level.GRAVITY, 5000f);
 		for(Block block : level.getBlocks.array()){
 			if(collisionChecker.overlaps(block.get())){
 				if(block.getTop() > collisionChecker.y && yVel <= 0){
@@ -120,9 +122,9 @@ public class Player extends Unit{
 					isInAir = false;
 					return;
 				}
-				else if(block.getTop() >= collisionChecker.y && yVel > 0){
-					posy = block.getBottom() - getHitBox().height;
-					yVel = 0;
+				else if(block.getTop() > collisionChecker.y && yVel >= 0){
+					posy = block.getBottom() - getHitBox().height - 1;
+					yVel = 0f; //Fixes clipping issues with certain heights.
 					return;
 				}
 			}
